@@ -49,7 +49,7 @@ public class EstadoResource {
 
     @GET
     @Path("/sigla/{sigla}")
-    public Estado buscarPorSigla(@PathParam("id") String sigla) { 
+    public Estado buscarPorSigla(@PathParam("sigla") String sigla) { 
         return service.findBySigla(sigla);
     }
 
