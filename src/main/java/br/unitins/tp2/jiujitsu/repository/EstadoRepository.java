@@ -16,4 +16,9 @@ public class EstadoRepository implements PanacheRepository<Estado> {
         return find("SELECT e FROM Estado e WHERE e.nome LIKE ?1 ", "%"+nome+"%");
     }
 
+    @Override
+    public PanacheQuery<Estado> findAll() {
+       return find("SELECT e FROM Estado e ORDER BY e.nome");
+    }
+
 }

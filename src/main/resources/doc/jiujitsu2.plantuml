@@ -1,0 +1,129 @@
+@startuml
+
+'classes
+class Aluno {
+    - id: Integer
+    - nome: String
+    - sobrenome: String
+    - dataNascimento: LocalDate
+    - cpf: String
+    - telefone: String
+    - email: String
+}
+
+class Professor {
+    - id: Integer
+    - nome: String
+    - sobrenome: String
+    - dataNascimento: LocalDate
+    - cpf: String
+    - telefone: String
+    - email: String
+}
+
+class Turma {
+    - id: Integer
+    - nome: String
+}
+
+class Horario {
+    - horaInicial: LocalTime
+    - horaFinal: LocalTime
+}
+
+enum DiaSemana {
+    + SEGUNDA:int
+    + TERCA:int
+    + QUARTA:int
+    + QUINTA:int
+    + SEXTA:int
+    + SABADO:int
+    + DOMINGO:int
+}
+
+class Frequencia {
+    - id: Integer
+    - data: Date
+    - presente: boolean
+}
+
+class Telefone {
+    - codigoArea: String
+    - numero: String
+}
+
+class Endereco {
+    - logradouro: String
+    - numero: String
+    - complemento: String
+    - bairro: String
+    - cep: String
+}
+
+class Estado {
+    - nome: String
+    - sigla: String
+}
+
+class Municipio {
+    - nome: String
+}
+
+class Faixa {
+    - nome: String
+    - idadeMinima: Integer
+}
+
+class Graduacao {
+    - data: LocalDate
+    - professor: String
+    - academia: String
+}
+
+class PlanoAula {
+    - nome: String
+    - descricao: String
+
+}
+
+class Tecnica {
+    - nome: String
+    - descricao: String
+    - urlVideo: String
+}
+
+class Aula {
+    - nome: String
+}
+
+'relacionamentos
+Turma "1" *--> "*"  Horario 
+Turma "*" --> "*" Professor
+
+Frequencia "*" --> "1" Aluno
+Frequencia "*" --> "1" Turma
+
+Municipio "*" --> "1" Estado
+
+Endereco "*" --> "1" Municipio
+
+Aluno "1" *--> "1" Telefone
+Aluno "*" --> "1" Municipio: naturalidade
+Aluno "1" *--> "1" Endereco
+
+Professor "1" *--> "1" Telefone
+
+Horario "*" --> "1" DiaSemana
+Horario "*" --> "1" Professor
+
+Graduacao "*" --> "1" Faixa
+Graduacao "*" --> "1" Aluno
+
+PlanoAula "*" --> "1" Faixa
+PlanoAula "1" *--> "*" Aula
+
+Aula "*" o--> "*" Tecnica
+
+
+
+@enduml
