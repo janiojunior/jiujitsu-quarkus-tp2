@@ -60,7 +60,7 @@ public class EstadoResource {
 
     @PUT
     @Path("/{id}")
-    public void alterar(@PathParam("id") Long id, Estado estado) {
+    public void alterar(@PathParam("id") Long id, EstadoDTO estado) {
         service.update(id, estado);
     }
 
@@ -82,7 +82,5 @@ public class EstadoResource {
     public long totalPorNome(@PathParam("id") String nome) {
         return service.count(nome);
     }
-
-
 
 }

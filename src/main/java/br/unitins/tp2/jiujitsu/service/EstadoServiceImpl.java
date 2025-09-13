@@ -25,7 +25,7 @@ public class EstadoServiceImpl implements EstadoService {
         novoEstado.setSigla(estado.getSigla());
 
         // selecionar uma regiao
-        novoEstado.setRegiao(Regiao.CENTRO_OESTE);
+        novoEstado.setRegiao(Regiao.valueOf(estado.getIdRegiao()));
 
         // realizando inclusao
         estadoRepository.persist(novoEstado);
@@ -35,11 +35,14 @@ public class EstadoServiceImpl implements EstadoService {
 
     @Override
     @Transactional
-    public void update(long id, Estado estado) {
+    public void update(long id, EstadoDTO estado) {
         Estado edicaoEstado = estadoRepository.findById(id);
 
         edicaoEstado.setNome(estado.getNome());
         edicaoEstado.setSigla(estado.getSigla());
+
+        // selecionar uma regiao
+        edicaoEstado.setRegiao(Regiao.valueOf(estado.getIdRegiao()));
     }
 
     @Override

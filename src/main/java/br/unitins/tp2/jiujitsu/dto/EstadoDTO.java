@@ -14,15 +14,15 @@ public final class EstadoDTO {
     @Length(min = 2, max = 2, message = "A sigla deve ter 2 caracteres.")
     private final String sigla;
 
-    private final long idRegiao;
+    private final Long idRegiao;
 
-    public EstadoDTO(String nome, String sigla, long idRegiao) {
+    public EstadoDTO(String nome, String sigla, Long idRegiao) {
         this.nome = nome;
         this.sigla = sigla;
         this.idRegiao = idRegiao;
     }
 
-    public long getIdRegiao() {
+    public Long getIdRegiao() {
         return idRegiao;
     }
 

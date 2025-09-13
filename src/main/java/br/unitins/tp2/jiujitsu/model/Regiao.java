@@ -4,21 +4,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Regiao {
-    CENTRO_OESTE(1, "Centro-Oeste"), 
-    NORTE(2, "Norte"), 
-    NORDESTE(3, "Nordeste"), 
-    SUDESTE(4, "Suldeste"), 
-    SUL(5, "Sul");
+    CENTRO_OESTE(1l, "Centro-Oeste"), 
+    NORTE(2l, "Norte"), 
+    NORDESTE(3l, "Nordeste"), 
+    SUDESTE(4l, "Suldeste"), 
+    SUL(5l, "Sul");
 
-    private final int ID;
+    private final Long ID;
     private final String NOME;
 
-    Regiao(int id, String nome) {
+    Regiao(Long id, String nome) {
         this.ID = id;
         this.NOME = nome;
     }
 
-    public int getId() {
+    public Long getId() {
         return ID;
     }
 
@@ -26,7 +26,7 @@ public enum Regiao {
         return NOME;
     }
 
-     public static Regiao valueOf(int id) {
+     public static Regiao valueOf(Long id) {
         for (Regiao r : Regiao.values()) {
             if (r.getId() == id)
                 return r;
