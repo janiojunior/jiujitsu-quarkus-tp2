@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Regiao {
     CENTRO_OESTE(1l, "Centro-Oeste"), 
-    NORTE(2l, "Norte"), 
     NORDESTE(3l, "Nordeste"), 
-    SUDESTE(4l, "Suldeste"), 
+    NORTE(2l, "Norte"), 
+    SUDESTE(4l, "Sudeste"), 
     SUL(5l, "Sul");
 
     private final Long ID;
