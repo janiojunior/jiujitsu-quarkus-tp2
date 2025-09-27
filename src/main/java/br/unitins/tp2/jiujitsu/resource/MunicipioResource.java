@@ -25,8 +25,25 @@ public class MunicipioResource {
     @Inject
     MunicipioService service;
 
+    @GET
+    public Response buscarTodos() {
+        return Response.ok(service.getAll()).build();
+    }
+
+    @GET
+    @Path("/search/nome/{nome}")
+    public Response buscarPorNome(@PathParam("nome") String nome) {
+        return Response.ok(service.findByNome(nome)).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response buscarPorId(@PathParam("id") Long id) {
+        return Response.ok(service.findById(id)).build();
+    }
+    
     @POST
-    public Response create(MunicipioDTO dto) {
+    public Response incluir(MunicipioDTO dto) {
         MunicipioResponseDTO retorno = service.create(dto);
         return Response.status(201).entity(retorno).build();
     }
@@ -34,7 +51,7 @@ public class MunicipioResource {
     @PUT
     @Transactional
     @Path("/{id}")
-    public Response update(MunicipioDTO dto, @PathParam("id") Long id) {
+    public Response alterar(MunicipioDTO dto, @PathParam("id") Long id) {
         service.update(id, dto);
         return Response.status(Status.NO_CONTENT).build();
     }
@@ -42,25 +59,9 @@ public class MunicipioResource {
     @DELETE
     @Transactional
     @Path("/{id}")
-    public Response delete(@PathParam("id") Long id) {
+    public Response apagar(@PathParam("id") Long id) {
         service.delete(id);
         return Response.status(Status.NO_CONTENT).build();
     }
 
-    @GET
-    public Response findAll() {
-        return Response.ok(service.getAll()).build();
-    }
-
-    @GET
-    @Path("/{id}")
-    public Response findById(@PathParam("id") Long id) {
-        return Response.ok(service.findById(id)).build();
-    }
-    
-    @GET
-    @Path("/search/nome/{nome}")
-    public Response findByNome(@PathParam("nome") String nome) {
-        return Response.ok(service.findByNome(nome)).build();
-    }
 }

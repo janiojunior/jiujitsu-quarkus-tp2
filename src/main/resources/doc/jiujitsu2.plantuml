@@ -107,11 +107,11 @@ Municipio "*" --> "1" Estado
 
 Endereco "*" --> "1" Municipio
 
-Aluno "1" *--> "1" Telefone
+Aluno "1" *--> "*" Telefone
 Aluno "*" --> "1" Municipio: naturalidade
 Aluno "1" *--> "1" Endereco
 
-Professor "1" *--> "1" Telefone
+Professor "1" *--> "*" Telefone
 
 Horario "*" --> "1" DiaSemana
 Horario "*" --> "1" Professor
