@@ -29,8 +29,8 @@ public class MunicipioServiceImpl implements MunicipioService {
     Validator validator;
 
     @Override
-    public List<MunicipioResponseDTO> getAll() {
-        List<Municipio> list = municipioRepository.findAll2();
+    public List<MunicipioResponseDTO> getAll(int page, int pageSize) {
+        List<Municipio> list = municipioRepository.findAll2().page(page, pageSize).list();
         return list.stream().map(e -> MunicipioResponseDTO.valueOf(e)).collect(Collectors.toList());
     }
 
@@ -83,8 +83,8 @@ public class MunicipioServiceImpl implements MunicipioService {
     }
 
     @Override
-    public List<MunicipioResponseDTO> findByNome(String nome) {
-        List<Municipio> list = municipioRepository.findByNome(nome);
+    public List<MunicipioResponseDTO> findByNome(String nome, int page, int pageSize) {
+        List<Municipio> list = municipioRepository.findByNome(nome).page(page, pageSize).list();
         return list.stream().map(e -> MunicipioResponseDTO.valueOf(e)).collect(Collectors.toList());
     }
 

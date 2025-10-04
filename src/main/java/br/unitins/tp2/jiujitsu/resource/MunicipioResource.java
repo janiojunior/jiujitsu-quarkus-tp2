@@ -7,12 +7,14 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
@@ -26,14 +28,21 @@ public class MunicipioResource {
     MunicipioService service;
 
     @GET
-    public Response buscarTodos() {
-        return Response.ok(service.getAll()).build();
+    public Response buscarTodos(@QueryParam("page") @DefaultValue("0") int page, 
+                                @QueryParam("pageSize") @DefaultValue("100") int pageSize) {
+        
+        // garantindo o numero maximo de registros por consulta                           
+        if (pageSize > 100)
+            pageSize = 100;
+        return Response.ok(service.getAll(page, pageSize)).build();
     }
 
     @GET
     @Path("/search/nome/{nome}")
-    public Response buscarPorNome(@PathParam("nome") String nome) {
-        return Response.ok(service.findByNome(nome)).build();
+    public Response buscarPorNome(@PathParam("nome") String nome,
+                                  @QueryParam("page") @DefaultValue("0") int page, 
+                                  @QueryParam("pageSize") @DefaultValue("100") int pageSize) {
+        return Response.ok(service.findByNome(nome, page, pageSize)).build();
     }
 
     @GET
@@ -49,7 +58,6 @@ public class MunicipioResource {
     }
 
     @PUT
-    @Transactional
     @Path("/{id}")
     public Response alterar(MunicipioDTO dto, @PathParam("id") Long id) {
         service.update(id, dto);
@@ -57,11 +65,16 @@ public class MunicipioResource {
     }
 
     @DELETE
-    @Transactional
     @Path("/{id}")
     public Response apagar(@PathParam("id") Long id) {
         service.delete(id);
         return Response.status(Status.NO_CONTENT).build();
+    }
+
+    @GET
+    @Path("/count")
+    public long total() {
+        return service.count();
     }
 
 }

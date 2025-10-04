@@ -64,6 +64,8 @@ public class EstadoServiceImpl implements EstadoService {
     @Override
     public List<Estado> findAll(Integer page, Integer pageSize) {
         PanacheQuery<Estado> query = null;
+        System.out.println(page);
+        System.out.println(pageSize);
         if (page == null || pageSize == null)
             query = estadoRepository.findAll();
         else

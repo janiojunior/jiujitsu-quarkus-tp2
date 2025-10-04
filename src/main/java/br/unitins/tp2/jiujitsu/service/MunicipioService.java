@@ -9,7 +9,7 @@ import br.unitins.tp2.jiujitsu.dto.MunicipioResponseDTO;
 public interface MunicipioService {
 
         // recursos basicos
-        List<MunicipioResponseDTO> getAll();
+        List<MunicipioResponseDTO> getAll(int page, int pageSize);
 
         MunicipioResponseDTO findById(Long id);
     
@@ -21,7 +21,7 @@ public interface MunicipioService {
     
         // recursos extras
     
-        List<MunicipioResponseDTO> findByNome(String nome);
+        List<MunicipioResponseDTO> findByNome(String nome, int page, int pageSize);
     
         long count();
     
