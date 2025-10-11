@@ -21,7 +21,7 @@ public class EstadoServiceImpl implements EstadoService {
     @Override
     @Transactional
     public Estado create(EstadoDTO estado) {
-        validarDados(estado);
+        validarDados(estado, null);
         Estado novoEstado = new Estado();
         novoEstado.setNome(estado.getNome());
         novoEstado.setSigla(estado.getSigla());
@@ -35,8 +35,8 @@ public class EstadoServiceImpl implements EstadoService {
         return novoEstado;
     }
 
-    private void validarDados(EstadoDTO dto) {
-        Estado estado = findBySigla(dto.getSigla());
+    private void validarDados(EstadoDTO dto, Long id) {
+        Estado estado = estadoRepository.findBySiglaExceptId(dto.getSigla(), id);
         if (estado != null)
            throw ValidationException.of("sigla", "Já existe um estado cadastrado com essa sigla.");
     }
@@ -44,6 +44,7 @@ public class EstadoServiceImpl implements EstadoService {
     @Override
     @Transactional
     public void update(long id, EstadoDTO estado) {
+        validarDados(estado, id);
         Estado edicaoEstado = estadoRepository.findById(id);
 
         edicaoEstado.setNome(estado.getNome());
