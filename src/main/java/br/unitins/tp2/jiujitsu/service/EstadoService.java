@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.tp2.jiujitsu.dto.EstadoDTO;
 import br.unitins.tp2.jiujitsu.model.Estado;
+import jakarta.validation.Valid;
 
 public interface EstadoService {
 

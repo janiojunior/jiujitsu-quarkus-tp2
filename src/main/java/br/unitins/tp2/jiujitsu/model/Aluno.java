@@ -34,7 +34,7 @@ public class Aluno extends DefaultEntity {
         joinColumns = @JoinColumn(name = "id_aluno"),
         uniqueConstraints = @UniqueConstraint(
             name = "uk_aluno_codigo_area_numero",
-            columnNames = {"id_aluno", "codigo_area", "numero"} // ou inclua "ddi" se usar
+            columnNames = {"id_aluno", "codigo_area", "numero"} 
         )
     )
     private List<Telefone> telefones;
