@@ -4,6 +4,9 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+//RFC 7807 - https://datatracker.ietf.org/doc/html/rfc7807
+//RFC 9457 - https://datatracker.ietf.org/doc/rfc9457/
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public final class Problem {
     public String type; // ex.: "https://api.seusistema.com/errors/validation-error"
