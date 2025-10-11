@@ -3,6 +3,7 @@ package br.unitins.tp2.jiujitsu.service;
 import java.util.List;
 
 import br.unitins.tp2.jiujitsu.dto.EstadoDTO;
+import br.unitins.tp2.jiujitsu.exception.ValidationException;
 import br.unitins.tp2.jiujitsu.model.Estado;
 import br.unitins.tp2.jiujitsu.model.Regiao;
 import br.unitins.tp2.jiujitsu.repository.EstadoRepository;
@@ -20,6 +21,7 @@ public class EstadoServiceImpl implements EstadoService {
     @Override
     @Transactional
     public Estado create(EstadoDTO estado) {
+        validarDados(estado);
         Estado novoEstado = new Estado();
         novoEstado.setNome(estado.getNome());
         novoEstado.setSigla(estado.getSigla());
@@ -31,6 +33,12 @@ public class EstadoServiceImpl implements EstadoService {
         estadoRepository.persist(novoEstado);
 
         return novoEstado;
+    }
+
+    private void validarDados(EstadoDTO dto) {
+        Estado estado = findBySigla(dto.getSigla());
+        if (estado != null)
+           throw ValidationException.of("sigla", "Já existe um estado cadastrado com essa sigla.");
     }
 
     @Override

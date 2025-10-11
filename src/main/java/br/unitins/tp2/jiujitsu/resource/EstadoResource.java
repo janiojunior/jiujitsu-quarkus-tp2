@@ -54,7 +54,7 @@ public class EstadoResource {
     }
 
     @POST
-    public Estado incluir(@Valid EstadoDTO dto) {
+    public Estado incluir(EstadoDTO dto) {
         return service.create(dto);
     }
 

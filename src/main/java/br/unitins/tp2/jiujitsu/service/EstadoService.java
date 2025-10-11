@@ -8,7 +8,7 @@ import jakarta.validation.Valid;
 
 public interface EstadoService {
 
-    Estado create(EstadoDTO estado);
+    Estado create(@Valid EstadoDTO estado);
     void update(long id, EstadoDTO estado);
     void delete(long id);
     Estado findById(long id);
