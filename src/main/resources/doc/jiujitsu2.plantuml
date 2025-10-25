@@ -1,6 +1,65 @@
 @startuml
 
 'classes
+
+class Academia {
+    - nome: String
+}
+
+class Plano {
+    - id: Long
+    - nome: String
+    - maxAlunos: Integer
+    - maxProfessores: Integer
+    - precoMensal: Double
+    - descontoAnual: Double
+}
+
+
+class Assinatura {
+    - id: Long
+    - inicio: LocalDate
+    - fim: LocalDate
+}
+
+
+abstract class Pagamento {
+    - id: Long
+    - nome: String
+    - dataHora: LocalDateTime
+}
+
+class Pix extends Pagamento {
+    - chavePix: String
+    ' id de transação PIX
+    - e2eId: String
+}
+
+
+class Cartao extends Pagamento {
+    - bandeira: String
+    - numero: String
+    - titular: String
+    - validadeMMYY: String
+    - tokenTransacao: String
+}
+
+
+class Boleto extends Pagamento {
+    - codigoBarras: String
+    - dataValidade: LocalDate
+}
+
+
+class Fatura {
+    - id: Long
+    - periodoInicio: Date
+    - periodoFim: Date
+    - valor: Double
+    - vencimento: Date
+}
+
+
 class Aluno {
     - id: Integer
     - nome: String
@@ -31,13 +90,13 @@ class Horario {
 }
 
 enum DiaSemana {
-    + SEGUNDA:int
-    + TERCA:int
-    + QUARTA:int
-    + QUINTA:int
-    + SEXTA:int
-    + SABADO:int
-    + DOMINGO:int
+    -  SEGUNDA:int
+    -  TERCA:int
+    -  QUARTA:int
+    -  QUINTA:int
+    -  SEXTA:int
+    -  SABADO:int
+    -  DOMINGO:int
 }
 
 class Frequencia {
@@ -96,7 +155,7 @@ class Aula {
 }
 
 'relacionamentos
-Turma "1" *--> "*"  Horario 
+Turma "1" *--> "*"  Horario
 Turma "*" --> "*" Professor
 
 Frequencia "*" --> "1" Aluno
@@ -123,6 +182,10 @@ PlanoAula "1" *--> "*" Aula
 
 Aula "*" o--> "*" Tecnica
 
-
+Academia "1" <-- "*" Assinatura
+Assinatura "*" --> "1" Plano
+Assinatura "1" o--> "*" Fatura
+Fatura "*" o--> "1" Plano
+Fatura "1" o--> "*" Pagamento
 
 @enduml

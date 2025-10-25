@@ -38,3 +38,16 @@ INSERT INTO aluno_telefone (id_aluno, codigo_area, numero) VALUES (4, '11', '955
 
 INSERT INTO aluno_telefone (id_aluno, codigo_area, numero) VALUES (5, '21', '944444444');
 INSERT INTO aluno_telefone (id_aluno, codigo_area, numero) VALUES (5, '63', '933333333');
+
+
+INSERT INTO plano (nome, max_alunos, max_professores, preco_mensal, desconto_anual) VALUES
+('Plano Iniciante', 50, 2, 99.90, 5.00),
+('Plano Intermediário', 100, 3, 149.90, 7.50),
+('Plano Avançado', 200, 5, 199.90, 10.00),
+('Plano Premium', 300, 8, 249.90, 12.00),
+('Plano Academia Pequena', 80, 4, 129.90, 8.00),
+('Plano Academia Média', 150, 6, 179.90, 10.00),
+('Plano Academia Grande', 400, 10, 299.90, 15.00),
+('Plano Profissional', 500, 12, 349.90, 18.00),
+('Plano Elite', 800, 15, 499.90, 20.00),
+('Plano Ilimitado', 9999, 50, 999.90, 25.00);
