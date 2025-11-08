@@ -9,6 +9,7 @@ import org.jboss.resteasy.reactive.multipart.FileUpload;
 import br.unitins.tp2.jiujitsu.dto.PlanoDTO;
 import br.unitins.tp2.jiujitsu.dto.PlanoResponseDTO;
 import br.unitins.tp2.jiujitsu.service.FileService;
+import br.unitins.tp2.jiujitsu.service.PlanoFileServiceImpl;
 import br.unitins.tp2.jiujitsu.service.PlanoService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -44,7 +45,7 @@ public class PlanoResource {
     PlanoService service;
 
     @Inject
-    FileService fileService;
+    PlanoFileServiceImpl fileService;
 
     @GET
     public Response buscarTodos(@QueryParam("page") @DefaultValue("0") int page,
@@ -131,7 +132,6 @@ public class PlanoResource {
             @RestForm("file") 
             @NotNull(message = "Arquivo de imagem é obrigatório.")
             FileUpload file) {
-
 
         try {
             fileService.salvar(idPlano, file);

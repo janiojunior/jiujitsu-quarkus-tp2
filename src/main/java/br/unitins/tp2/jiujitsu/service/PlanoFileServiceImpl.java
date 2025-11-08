@@ -22,7 +22,7 @@ import jakarta.ws.rs.core.Response;
 
 @ApplicationScoped
 public class PlanoFileServiceImpl implements FileService {
-    // ex. /user/janio/quarkus/images/usuario/
+    // ex. /user/janio/quarkus/images/plano/
     // Diretório base (poderia vir de configuração)
     private static final Path PLANO_UPLOAD_DIR = Paths.get(
             System.getProperty("user.home"),
@@ -62,6 +62,7 @@ public class PlanoFileServiceImpl implements FileService {
 
             // Garante que o diretório existe
             Files.createDirectories(PLANO_UPLOAD_DIR);
+            
             // Gera nome aleatório seguro
             String novoNome = gerarNomeAleatorio(file.fileName());
             Path destino = PLANO_UPLOAD_DIR.resolve(novoNome);
