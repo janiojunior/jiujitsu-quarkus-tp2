@@ -1,16 +1,24 @@
 package br.unitins.tp2.jiujitsu.resource;
 
+import java.io.IOException;
 import java.net.URI;
+
+import org.jboss.resteasy.reactive.RestForm;
+import org.jboss.resteasy.reactive.multipart.FileUpload;
 
 import br.unitins.tp2.jiujitsu.dto.PlanoDTO;
 import br.unitins.tp2.jiujitsu.dto.PlanoResponseDTO;
+import br.unitins.tp2.jiujitsu.service.FileService;
 import br.unitins.tp2.jiujitsu.service.PlanoService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -20,6 +28,8 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
+import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.core.UriBuilder;
 import jakarta.ws.rs.core.UriInfo;
 
@@ -33,31 +43,34 @@ public class PlanoResource {
     @Inject
     PlanoService service;
 
+    @Inject
+    FileService fileService;
+
     @GET
-    public Response buscarTodos(@QueryParam("page")     @DefaultValue("0")   int page,
-                                @QueryParam("pageSize") @DefaultValue("100") int pageSize) {
+    public Response buscarTodos(@QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("pageSize") @DefaultValue("100") int pageSize) {
         page = Math.max(0, page);
         pageSize = Math.min(Math.max(1, pageSize), MAX_PAGE_SIZE);
 
         return Response.ok(service.getAll(page, pageSize))
                 .header("X-Page", page)
                 .header("X-Page-Size", pageSize)
-                .header("X-Total-Count", service.count()) 
+                .header("X-Total-Count", service.count())
                 .build();
     }
 
     @GET
     @Path("/search/nome/{nome}")
     public Response buscarPorNome(@PathParam("nome") String nome,
-                                  @QueryParam("page")     @DefaultValue("0")   int page,
-                                  @QueryParam("pageSize") @DefaultValue("100") int pageSize) {
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("pageSize") @DefaultValue("100") int pageSize) {
         page = Math.max(0, page);
         pageSize = Math.min(Math.max(1, pageSize), MAX_PAGE_SIZE);
 
         return Response.ok(service.findByNome(nome, page, pageSize))
                 .header("X-Page", page)
                 .header("X-Page-Size", pageSize)
-                .header("X-Total-Count", service.countNome(nome)) 
+                .header("X-Total-Count", service.countNome(nome))
                 .build();
     }
 
@@ -71,8 +84,8 @@ public class PlanoResource {
     public Response incluir(@Valid PlanoDTO dto, @Context UriInfo uriInfo) {
         PlanoResponseDTO created = service.create(dto);
         URI location = UriBuilder.fromResource(PlanoResource.class)
-                                 .path(PlanoResource.class, "buscarPorId")
-                                 .build(created.id());
+                .path(PlanoResource.class, "buscarPorId")
+                .build(created.id());
         return Response.created(location).entity(created).build();
     }
 
@@ -95,5 +108,37 @@ public class PlanoResource {
     @Path("/count")
     public long total() {
         return service.count();
+    }
+
+    @GET
+    @Path("/image/download/{nomeImagem}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response download(@PathParam("nomeImagem") String nomeImagem) {
+        ResponseBuilder response = Response.ok(fileService.download(nomeImagem));
+        response.header("Content-Disposition", "attachment;filename=" + nomeImagem);
+        return response.build();
+    }
+
+    @PATCH
+    @Path("/image/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response salvarImagem(
+            @RestForm("idPlano") 
+            @NotNull(message = "idPlano é obrigatório.")
+            @Min(value = 1, message = "idPlano deve ser maior ou igual a 1.")
+            Long idPlano,
+
+            @RestForm("file") 
+            @NotNull(message = "Arquivo de imagem é obrigatório.")
+            FileUpload file) {
+
+
+        try {
+            fileService.salvar(idPlano, file);
+            return Response.noContent().build();
+        } catch (IOException e) {
+            return Response.status(Status.CONFLICT).build();
+        }
+
     }
 }

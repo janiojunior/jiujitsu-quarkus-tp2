@@ -29,13 +29,9 @@ VALUES ('Leandra', 'Silva', '2002-01-05', '15975345682', 'leandra.silva@email.co
 -- Telefones
 INSERT INTO aluno_telefone (id_aluno, codigo_area, numero) VALUES (1, '63', '999999999');
 INSERT INTO aluno_telefone (id_aluno, codigo_area, numero) VALUES (1, '61', '988888888');
-
 INSERT INTO aluno_telefone (id_aluno, codigo_area, numero) VALUES (2, '62', '977777777');
-
 INSERT INTO aluno_telefone (id_aluno, codigo_area, numero) VALUES (3, '63', '966666666');
-
 INSERT INTO aluno_telefone (id_aluno, codigo_area, numero) VALUES (4, '11', '955555555');
-
 INSERT INTO aluno_telefone (id_aluno, codigo_area, numero) VALUES (5, '21', '944444444');
 INSERT INTO aluno_telefone (id_aluno, codigo_area, numero) VALUES (5, '63', '933333333');
 

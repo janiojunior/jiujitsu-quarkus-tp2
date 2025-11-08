@@ -1,8 +1,5 @@
 package br.unitins.tp2.jiujitsu.dto;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import br.unitins.tp2.jiujitsu.model.Plano;
 
 public record PlanoResponseDTO(
@@ -11,7 +8,8 @@ public record PlanoResponseDTO(
     Integer maxAlunos,
     Integer maxProfessores,
     Double precoMensal,
-    Double descontoAnual
+    Double descontoAnual,
+    String nomeImagem
     ) {
 
 public static PlanoResponseDTO valueOf(Plano plano) {
@@ -21,7 +19,8 @@ public static PlanoResponseDTO valueOf(Plano plano) {
         plano.getMaxAlunos(),
         plano.getMaxProfessores(),
         plano.getPrecoMensal(),
-        plano.getDescontoAnual()
+        plano.getDescontoAnual(),
+        plano.getNomeImagem()
     );
 }
 

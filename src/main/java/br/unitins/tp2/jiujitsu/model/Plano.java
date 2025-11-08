@@ -21,6 +21,9 @@ public class Plano extends DefaultEntity {
     @Column(nullable = false, name = "desconto_anual")
     private Double descontoAnual;
 
+    @Column(nullable = true, name = "nome_imagem")
+    private String nomeImagem;
+
     public String getNome() {
         return nome;
     }
@@ -59,6 +62,14 @@ public class Plano extends DefaultEntity {
 
     public void setDescontoAnual(Double descontoAnual) {
         this.descontoAnual = descontoAnual;
+    }
+
+    public String getNomeImagem() {
+        return nomeImagem;
+    }
+
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
     }
 
 }
