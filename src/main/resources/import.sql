@@ -47,3 +47,6 @@ INSERT INTO plano (nome, max_alunos, max_professores, preco_mensal, desconto_anu
 ('Plano Profissional', 500, 12, 349.90, 18.00),
 ('Plano Elite', 800, 15, 499.90, 20.00),
 ('Plano Ilimitado', 9999, 50, 999.90, 25.00);
+
+
+insert into usuario(username, senha, perfil) values ('janio', '0cctg7WgpEz7kC/AzVC+KX+bZLPXDtgJDqWWZWnmzHH+7Na2YVxYYSFPxcf7ImAjqfNckx0aT4n5qKM7WEoeEQ==', 1);

@@ -45,9 +45,10 @@ public class PlanoFileServiceImpl implements FileService {
     public void salvar(Long id, FileUpload file) throws IOException {
         Plano plano = planoRepository.findById(id);
 
+        // excluir a imagem antiga (trabalho pra quem????)
+        
         String novoNomeImagem = salvarImagem(file);
         plano.setNomeImagem(novoNomeImagem);
-        // excluir a imagem antiga (trabalho pra quem????)
     }
 
     private String salvarImagem(FileUpload file) {
