@@ -16,11 +16,11 @@ class Plano {
 }
 
 
-class Assinatura {
-    - id: Long
-    - inicio: LocalDate
-    - fim: LocalDate
-}
+' class Assinatura {
+'     - id: Long
+'     - inicio: LocalDate
+'     - fim: LocalDate
+' }
 
 
 abstract class Pagamento {
@@ -51,13 +51,13 @@ class Boleto extends Pagamento {
 }
 
 
-class Fatura {
-    - id: Long
-    - periodoInicio: Date
-    - periodoFim: Date
-    - valor: Double
-    - vencimento: Date
-}
+' class Fatura {
+'     - id: Long
+'     - periodoInicio: Date
+'     - periodoFim: Date
+'     - valor: Double
+'     - vencimento: Date
+' }
 
 
 class Aluno {
@@ -154,6 +154,18 @@ class Aula {
     - nome: String
 }
 
+class Pedido {
+    - data: LocalDateTime
+    - total: Double
+    ' - cupom: CupomDesconto
+}
+
+class ItemPedido {
+    - quantidade: Integer
+    - preco: Double
+    - desconto: Double
+}
+
 'relacionamentos
 Turma "1" *--> "*"  Horario
 Turma "*" --> "*" Professor
@@ -182,10 +194,18 @@ PlanoAula "1" *--> "*" Aula
 
 Aula "*" o--> "*" Tecnica
 
-Academia "1" <-- "*" Assinatura
-Assinatura "*" --> "1" Plano
-Assinatura "1" o--> "*" Fatura
-Fatura "*" o--> "1" Plano
-Fatura "1" o--> "*" Pagamento
+Pedido "*" --> "1" Usuario
+Pedido "1" --> "1" Pagamento
+Pedido "1" *--> "*" ItemPedido
+
+ItemPedido "*" --> "1" Plano
+
+
+
+' Academia "1" <-- "*" Assinatura
+' Assinatura "*" --> "1" Plano
+' Assinatura "1" o--> "*" Fatura
+' Fatura "*" o--> "1" Plano
+' Fatura "1" o--> "*" Pagamento
 
 @enduml

@@ -50,3 +50,4 @@ INSERT INTO plano (nome, max_alunos, max_professores, preco_mensal, desconto_anu
 
 
 insert into usuario(username, senha, perfil) values ('janio', '0cctg7WgpEz7kC/AzVC+KX+bZLPXDtgJDqWWZWnmzHH+7Na2YVxYYSFPxcf7ImAjqfNckx0aT4n5qKM7WEoeEQ==', 1);
+insert into usuario(username, senha, perfil) values ('leandra', '0cctg7WgpEz7kC/AzVC+KX+bZLPXDtgJDqWWZWnmzHH+7Na2YVxYYSFPxcf7ImAjqfNckx0aT4n5qKM7WEoeEQ==', 2);
