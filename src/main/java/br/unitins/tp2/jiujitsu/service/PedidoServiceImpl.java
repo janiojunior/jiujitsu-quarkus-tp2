@@ -2,7 +2,6 @@ package br.unitins.tp2.jiujitsu.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import br.unitins.tp2.jiujitsu.dto.ItemPedidoDTO;
 import br.unitins.tp2.jiujitsu.dto.PedidoDTO;

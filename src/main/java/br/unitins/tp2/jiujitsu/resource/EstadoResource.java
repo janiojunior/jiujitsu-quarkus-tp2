@@ -5,6 +5,8 @@ import java.util.List;
 import br.unitins.tp2.jiujitsu.dto.EstadoDTO;
 import br.unitins.tp2.jiujitsu.model.Estado;
 import br.unitins.tp2.jiujitsu.service.EstadoService;
+import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -23,12 +25,14 @@ import jakarta.ws.rs.core.MediaType;
 @Path("estados")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+// @Authenticated
 public class EstadoResource {
 
     @Inject
     EstadoService service;
 
     @GET
+    @RolesAllowed({"User", "Admin"})
     public List<Estado> buscarTodos(@QueryParam("page") @DefaultValue("0") int page,
                                     @QueryParam("page_size") @DefaultValue("100") int pageSize) { 
         return service.findAll(page, pageSize);
